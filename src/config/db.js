@@ -16,21 +16,29 @@
 const mongoose = require("mongoose");
 
 const connectDB = async () => {
+  if (mongoose.connection.readyState === 1) {
+    return mongoose.connection;
+  }
+
+  if (!process.env.MONGO_URI) {
+    throw new Error("MONGO_URI is not defined");
+  }
+
   try {
     console.log("⏳ Connecting to MongoDB...");
 
-    if (mongoose.connection.readyState === 1) {
-      return;
-    }
-
     await mongoose.connect(process.env.MONGO_URI, {
       serverSelectionTimeoutMS: 5000,
+      maxPoolSize: 10,
+      minPoolSize: 0,
     });
 
     console.log("✅ Connected to MongoDB Atlas");
-  } catch (err) {
-    console.error("❌ MongoDB Atlas connection error:", err.message);
-    throw err;
+
+    return mongoose.connection;
+  } catch (error) {
+    console.error("❌ MongoDB connection error:", error.message);
+    throw error;
   }
 };
 
