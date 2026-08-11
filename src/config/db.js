@@ -24,22 +24,16 @@ const connectDB = async () => {
     throw new Error("MONGO_URI is not defined");
   }
 
-  try {
-    console.log("⏳ Connecting to MongoDB...");
+  console.log("⏳ Connecting to MongoDB...");
 
-    await mongoose.connect(process.env.MONGO_URI, {
-      serverSelectionTimeoutMS: 5000,
-      maxPoolSize: 10,
-      minPoolSize: 0,
-    });
+  await mongoose.connect(process.env.MONGO_URI, {
+    serverSelectionTimeoutMS: 5000,
+    maxPoolSize: 10,
+  });
 
-    console.log("✅ Connected to MongoDB Atlas");
+  console.log("✅ Connected to MongoDB Atlas");
 
-    return mongoose.connection;
-  } catch (error) {
-    console.error("❌ MongoDB connection error:", error.message);
-    throw error;
-  }
+  return mongoose.connection;
 };
 
 module.exports = connectDB;
