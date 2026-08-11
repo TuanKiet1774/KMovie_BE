@@ -14,6 +14,8 @@
 ## 📂 Thu mục dự án
 ```text
 Movie_BE/
+├── api/
+│   ├── index.js
 ├── src/
 │   ├── config/      # Cấu hình database
 │   ├── controllers/ # Xử lý logic nghiệp vụ
@@ -22,6 +24,7 @@ Movie_BE/
 │   └── app.js       # Khởi tạo Express app
 ├── .env             # Biến môi trường
 ├── server.js        # File chạy chính của server
+├── vercel.json
 └── package.json     # Thông tin dự án và dependencies
 ```
 
